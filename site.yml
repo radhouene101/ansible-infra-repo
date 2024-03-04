@@ -1,0 +1,46 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: update repo cache (Ubuntu)
+    tags: always
+    apt:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "Ubuntu"
+
+  - name: update repo cache (AlmaLinux)
+    tags: always
+    dnf:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "AlmaLinux"
+
+- hosts: all
+  become: true
+  roles:
+   - base
+
+
+
+- hosts: web_servers
+  become: true
+  roles:
+   - web_servers
+
+- hosts: db_server
+  become: true
+  roles:
+   - db_server 
+
+- hosts: file_servers
+  become: true
+  roles:
+    - file_servers
+
+- hosts: workstations
+  become: true
+  roles:
+   - workstations
+

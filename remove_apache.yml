@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: deleting nano text editor  and net-tools nad apache and php 
+    package:
+      name: 
+        - "{{ apache_package }}"
+        - "{{ php_package  }}"
+        - "{{ nano_package }}"
+        - "{{ net_tools_package }}"
+      state: absent
